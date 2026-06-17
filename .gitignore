@@ -2,3 +2,9 @@ data/USvideos.csv
 data/IN_category_id.json
 data/US_category_id.json
 data/INvideos.csv
+
+data/
+*.npy
+.ipynb_checkpoints/
+__pycache__/
+.DS_Store
