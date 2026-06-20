@@ -9,6 +9,6 @@ data/
 __pycache__/
 .DS_Store
 # exceptions: these specific files ARE needed for the deployed Streamlit app
-!data/cleaned_videos_part1.csv
-!data/cleaned_videos_part2.csv
-!data/embeddings_weighted.npy
+!/Users/anoushka/Desktop/Diversity-Aware-Recommender/data/cleaned_videos_part1.csv
+!/Users/anoushka/Desktop/Diversity-Aware-Recommender/data/cleaned_videos_part2.csv
+!/Users/anoushka/Desktop/Diversity-Aware-Recommender/data/embeddings_weighted.npy
