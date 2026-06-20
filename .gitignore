@@ -2,6 +2,7 @@ data/USvideos.csv
 data/IN_category_id.json
 data/US_category_id.json
 data/INvideos.csv
+data/cleaned_videos.csv
 
 data/
 *.npy
