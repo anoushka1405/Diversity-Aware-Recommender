@@ -21,7 +21,9 @@ st.set_page_config(page_title="Diversity-Aware Recommender", layout="wide")
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv("data/cleaned_videos.csv")
+    df1 = pd.read_csv("data/cleaned_videos_part1.csv")
+    df2 = pd.read_csv("data/cleaned_videos_part2.csv")
+    df = pd.concat([df1, df2], ignore_index=True)
     embeddings = np.load("data/embeddings_weighted.npy")
     sim_matrix = cosine_similarity(embeddings)
     return df, sim_matrix

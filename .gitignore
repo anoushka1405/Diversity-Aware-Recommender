@@ -8,3 +8,7 @@ data/
 .ipynb_checkpoints/
 __pycache__/
 .DS_Store
+# exceptions: these specific files ARE needed for the deployed Streamlit app
+!data/cleaned_videos_part1.csv
+!data/cleaned_videos_part2.csv
+!data/embeddings_weighted.npy
