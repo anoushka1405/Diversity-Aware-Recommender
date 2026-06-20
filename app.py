@@ -102,19 +102,21 @@ if search_query:
     matches = df[df["title"].str.contains(search_query, case=False, na=False)]
     options = matches["title"].head(20).tolist()
 else:
-    # curated defaults that showcase different stories
-    default_titles = [
-        "WE WANT TO TALK ABOUT OUR MARRIAGE",  # channel-bias case study
-        "CURRENT AFFAIRS | THE HINDU | 5th December 2017 | UPSC,IBPS, RRB, SSC,CDS,IB,CLAT",  # echo-chamber example
+    # deliberately curated defaults only — no random sampling, so the first
+    # thing a viewer sees is always a clean, intentional example
+    curated_titles = [
+        "WE WANT TO TALK ABOUT OUR MARRIAGE",
+        "CURRENT AFFAIRS | THE HINDU | 5th December 2017 | UPSC,IBPS, RRB, SSC,CDS,IB,CLAT",
+        "'Black Panther' Review - The Women Were Clutch",
+        "Five Finger Death Punch - Gone Away (Lyric Video)",
+        "HAIM - Night So Long (Live At The Greek)",
+        "How Long Will Our Monuments Last?",
+        "Unacademy Knowledge Fight - Roman Saini vs Biswa Kalyan Rath | Episode 2",
     ]
-    options = [t for t in default_titles if t in df["title"].values]
-    # pad with a few random extras so the dropdown isn't tiny
-    extra_pool = df[~df["title"].isin(options)]["title"]
-    extra_n = min(15, len(extra_pool))
-    if extra_n > 0:
-        options = options + extra_pool.sample(extra_n, random_state=1).tolist()
+    options = [t for t in curated_titles if t in df["title"].values]
     if not options:
-        options = df["title"].sample(min(20, len(df)), random_state=1).tolist()
+        # fallback only if neither curated title exists in this (smaller) demo sample
+        options = df["title"].head(10).tolist()
 
 if not options:
     st.sidebar.warning("No matches found — try a different keyword.")
