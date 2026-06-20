@@ -21,10 +21,8 @@ st.set_page_config(page_title="Diversity-Aware Recommender", layout="wide")
 
 @st.cache_data
 def load_data():
-    df1 = pd.read_csv("data/cleaned_videos_part1.csv")
-    df2 = pd.read_csv("data/cleaned_videos_part2.csv")
-    df = pd.concat([df1, df2], ignore_index=True)
-    embeddings = np.load("data/embeddings_weighted.npy")
+    df = pd.read_csv("data/demo_videos.csv")
+    embeddings = np.load("data/demo_embeddings.npy")
     sim_matrix = cosine_similarity(embeddings)
     return df, sim_matrix
 
@@ -89,7 +87,7 @@ st.caption(
 
 with st.spinner("Loading data and embeddings..."):
     df, sim_matrix = load_data()
-    embeddings = np.load("data/embeddings_weighted.npy")
+    embeddings = np.load("data/demo_embeddings.npy")
     if "topic_cluster" not in df.columns:
         df["topic_cluster"] = get_clusters(sim_matrix.shape, embeddings)
 
@@ -104,16 +102,19 @@ if search_query:
     matches = df[df["title"].str.contains(search_query, case=False, na=False)]
     options = matches["title"].head(20).tolist()
 else:
-    # a few interesting defaults
+    # curated defaults that showcase different stories
     default_titles = [
-        "WE WANT TO TALK ABOUT OUR MARRIAGE",
-        "CURRENT AFFAIRS | THE HINDU | 5th December 2017 | UPSC,IBPS, RRB, SSC,CDS,IB,CLAT",
-        "All Sports Golf Battle 2 | Dude Perfect",
-        "Wearing Fashion Nova Outfits For A Week",
-        "How Nike Designs for an N.B.A. Athlete | In the Studio",
-        "Missouri Star Quilt Company Live Stream"
+        "WE WANT TO TALK ABOUT OUR MARRIAGE",  # channel-bias case study
+        "CURRENT AFFAIRS | THE HINDU | 5th December 2017 | UPSC,IBPS, RRB, SSC,CDS,IB,CLAT",  # echo-chamber example
     ]
-    options = [t for t in default_titles if t in df["title"].values] or df["title"].head(20).tolist()
+    options = [t for t in default_titles if t in df["title"].values]
+    # pad with a few random extras so the dropdown isn't tiny
+    extra_pool = df[~df["title"].isin(options)]["title"]
+    extra_n = min(15, len(extra_pool))
+    if extra_n > 0:
+        options = options + extra_pool.sample(extra_n, random_state=1).tolist()
+    if not options:
+        options = df["title"].sample(min(20, len(df)), random_state=1).tolist()
 
 if not options:
     st.sidebar.warning("No matches found — try a different keyword.")
@@ -154,7 +155,7 @@ if run:
     for rank, idx in enumerate(result, start=1):
         title = df.iloc[idx]["title"]
         country = df.iloc[idx].get("country", "")
-        st.write(f"{rank}. {title}  `{country}`")
+        st.markdown(f"**{rank}** — {title}  `{country}`")
 
     st.caption(
         "ILD = average pairwise dissimilarity within this list (higher = more diverse). "
