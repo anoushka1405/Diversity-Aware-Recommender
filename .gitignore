@@ -8,7 +8,9 @@ data/
 .ipynb_checkpoints/
 __pycache__/
 .DS_Store
-# exceptions: these specific files ARE needed for the deployed Streamlit app
-!/Users/anoushka/Desktop/Diversity-Aware-Recommender/data/cleaned_videos_part1.csv
-!/Users/anoushka/Desktop/Diversity-Aware-Recommender/data/cleaned_videos_part2.csv
-!/Users/anoushka/Desktop/Diversity-Aware-Recommender/data/embeddings_weighted.npy
+
+# exceptions: un-ignore the data folder itself so file-level exceptions below can take effect
+!data/
+!data/cleaned_videos_part1.csv
+!data/cleaned_videos_part2.csv
+!data/embeddings_weighted.npy
