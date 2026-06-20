@@ -172,3 +172,8 @@ st.caption(
     "It does not measure whether users would actually prefer more diverse results — "
     "see `limitations.md` for the full reasoning."
 )
+st.caption(
+    "Note: this live demo runs on a 3,000-video sample for performance reasons. "
+    "The full evaluation (22,400 videos) and the exact numbers cited in the README "
+    "were computed on the complete dataset — see the notebooks and results files."
+)
