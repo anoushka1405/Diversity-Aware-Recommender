@@ -2,7 +2,7 @@
 
 Mitigating echo chambers in online video platforms using content-based filtering and Maximal Marginal Relevance (MMR) re-ranking.
 
-🔗 **[Live Demo](#) — add Streamlit Cloud URL here once deployed** | Run locally: `streamlit run app.py`
+🔗 **[Live Demo](https://diversity-aware-recommender.streamlit.app/) 
 
 ## Overview
 
