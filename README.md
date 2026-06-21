@@ -2,7 +2,7 @@
 
 Mitigating echo chambers in online video platforms using content-based filtering and Maximal Marginal Relevance (MMR) re-ranking.
 
-🔗 **[Live Demo](https://diversity-aware-recommender.streamlit.app/)**
+🔗 [Live Demo](https://diversity-aware-recommender.streamlit.app/)
 
 ## Overview
 
